@@ -15,7 +15,8 @@
         <h1>Cotización</h1>
         <label>Dirección de la empresa</label>
         <select id="direccion"></select>
-        <div id="telefono" style="margin-top:5px; font-weight:bold;"></div>
+<div id="telefono" style="margin-top:5px; font-weight:bold;"></div>
+
         <div class="tel">Teléfono:</div>
       </div>
       <div class="extras">
@@ -105,15 +106,15 @@
         <div class="total"><span>TOTAL</span><strong id="total">$ 0.00</strong></div>
       </div>
       
-      <p class="disclaimer">
-        La presente cotización es válida por 15 días e incluye únicamente los conceptos señalados; 
-        cualquier servicio adicional será cotizado aparte; el pago deberá realizarse al momento del ingreso, 
-        pacientes de aseguradora debe presentarse con su carta de autorización vigente; 
-        En caso de cancelación el paciente deberá avisar con al menos 24 horas de anticipación, 
-        de lo contrario se cobrará el medicamento y los servicios asociados al medicamento; 
-        La presente cotización está sujeta a cambios si el médico tratante así lo indica.
-      </p>
-      <button id="btnPDF">Descargar PDF</button>
+<p class="disclaimer">
+  La presente cotización es válida por 15 días e incluye únicamente los conceptos señalados; 
+  cualquier servicio adicional será cotizado aparte; el pago deberá realizarse al momento del ingreso, 
+  pacientes de aseguradora debe presentarse con su carta de autorización vigente; 
+  En caso de cancelación el paciente deberá avisar con al menos 24 horas de anticipación, 
+  de lo contrario se cobrará el medicamento y los servicios asociados al medicamento; 
+  La presente cotización está sujeta a cambios si el médico tratante así lo indica.
+</p>
+<button id="btnPDF">Descargar PDF</button>
     </section>
   </main>
 
@@ -130,15 +131,12 @@
 
     btn.addEventListener("click", function() {
       const { jsPDF } = window.jspdf;
-      const cotizador = document.getElementById("cotizador");
-
-      html2canvas(cotizador, { 
+      html2canvas(document.getElementById("cotizador"), { 
         scale: 2, 
         useCORS: true,
         onclone: (clonedDoc) => {
-          // Ocultar controles en el clon antes de renderizar
           clonedDoc.querySelectorAll(
-            '#buscarMed, #ordenMed, #selMedicamento, #cantMed, #selServicio, #cantServ, #descServ, #addMed, #addServ, .btn-eliminar, #btnPDF'
+            '#buscarMed, #ordenMed, #selMedicamento, #cantMed, #selServicio, #cantServ, #descServ, #addMed, #addServ, .btn-eliminar, #btnPDF, table button'
           ).forEach(el => el.style.display = 'none');
         }
       }).then(function(canvas) {
@@ -158,7 +156,7 @@
         const x = (pageWidth - imgWidth) / 2;
         pdf.addImage(imgData, "PNG", x, 0, imgWidth, imgHeight);
 
-        // Datos dinámicos para nombre de archivo
+        // Datos dinámicos
         let paciente = document.getElementById("paciente").value || "Paciente";
         let fecha = document.getElementById("fechaEmision").value || new Date().toISOString().split("T")[0];
 
@@ -172,5 +170,48 @@
   });
   </script>
 
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var direccion = document.getElementById("direccion");
+  var telefono = document.getElementById("telefono");
+  if(direccion){
+    direccion.addEventListener("change", function() {
+      if(this.value === "Toluca"){
+        telefono.textContent = "Tel: 722 197 08 36";
+      } else if(this.value === "Narvarte"){
+        telefono.textContent = "Tel: 55 5255 8403";
+      } else {
+        telefono.textContent = "";
+      }
+    });
+  }
+});
+</script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var direccion = document.getElementById("direccion");
+  var telefono = document.getElementById("telefono");
+  if(direccion && telefono){
+    function actualizarTelefono() {
+      var val = direccion.value;
+      if(val.includes("Toluca")){
+        telefono.textContent = "722 197 08 36";
+      } else if(val.includes("Narvarte")){
+        telefono.textContent = "55 5255 8403";
+      } else {
+        telefono.textContent = "";
+      }
+    }
+    direccion.addEventListener("change", actualizarTelefono);
+    actualizarTelefono(); // Ejecutar al cargar
+  }
+});
+</script>
+
 </body>
 </html>
+
+
+  

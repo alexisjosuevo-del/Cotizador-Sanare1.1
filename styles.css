@@ -27,36 +27,11 @@ th,td{border:1px solid #eadfd9;padding:8px;text-align:center}
 .extras label { font-weight:bold; margin-top:4px; }
 .extras input { padding:4px; border:1px solid #ccc; border-radius:6px; }
 
+
 .disclaimer {
   font-size: 10px;
   color: #6b7280;
   text-align: center;
   margin: 12px 0;
   line-height: 1.3;
-}
-
-/* 🔧 Reglas especiales para impresión/PDF */
-@media print {
-  /* Buscadores y selects */
-  #buscarMed,
-  #ordenMed,
-  #selMedicamento,
-  #cantMed,
-  #selServicio,
-  #cantServ,
-  #descServ {
-    display: none !important;
-  }
-
-  /* Botones agregar y eliminar */
-  #addMed,
-  #addServ,
-  .btn-eliminar {
-    display: none !important;
-  }
-
-  /* Botón de descarga */
-  #btnPDF {
-    display: none !important;
-  }
 }
